@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc } from 'firebase/firestore/lite';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc } from 'firebase/firestore/lite';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyChORLRul0V5hyq6T99gbHKqM3EKJYCBC4",
@@ -22,9 +22,16 @@ export const registerUser = async (email, password) => {
     console.log("uid: ", uid);
     return uid;
   } catch (error) {
-    const errorCode = error.code;
-    console.log("Error registering user.", error, "Error Message: ", error.message, "Error code: ", errorCode);
-    alert("Sorry, something went wrong. Please try again later.");
+    if (error.code === "auth/email-already-exists") {
+      alert("A user with this email has already been registerd. Please log in or register with a different email.");
+    } else if (error.code === "auth/invalid-email") {
+      alert("Please use a valid email address.");
+    } else if (error.code === "auth/invalid-password") {
+      alert("The password you have enterd is too short. Please use a longer one.");
+    } else {
+      alert("Sorry, something went wrong. Please try again later.");
+    }
+    console.log("Error registering user.", error);
   }
 }
 
@@ -35,29 +42,66 @@ export const loginUser = async (email, password) => {
     console.log("uid: ", uid);
     return uid;
   } catch (error) {
-    console.log("Error logging in user.", error, "Error Message: ", error.message, "Error code: ", errorCode);
-    alert("Logging in failed.");
+    if (error.code === "auth/wrong-password") {
+      alert("Wrong password. Please try again.");
+    } else if (error.code === "auth/user-not-found") {
+      alert("A user with this email is not registerd. Please register.");
+    } else {
+      alert("Sorry, something went wrong. Please try again later.");
+      console.log("Error logging in user: ", error.code);
+    }
   }
 }
 
+export const logoutUser = async () => {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    console.log("Error signing out user.");
+  }
+}
+
+//[`${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`]: []
+
+const setTodosDoc = async (userId) => {
+  try {
+    await setDoc(doc(db, "todos", userId), {});
+    return;
+  } catch (error) {
+    console.log("Error setting todos doc: ", error);
+  }
+}
 
 // fire when user successfully logs in (need user uid)
-export const getTodos = async () => {
-  const docRef = doc(db, "todos", "jnrws31qnRBia6AFghSe");
+export const getTodos = async (userId) => {
+  const docRef = doc(db, "todos", userId);
   try {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       console.log("Document data: ", docSnap.data());
       return docSnap.data();
     } else {
-      // docSnap.data() will be undefined
-      // SET TODOS DOCUMENT FOR THIS USER (user must be new if no todos document!)
-      // add todays date in document and return the empty array of todos
-      console.log("No such document exists!");
+
+      await setTodosDoc(userId);
+
+      return {};
     }
   } catch (error) {
     console.log("Error getting todos: ", error.message);
     alert("Sorry somthing went wrong. Please try again later.");
+  }
+}
+
+export const updateTodos = async (userId, currentTodosObject) => {
+  const docRef = doc(db, "todos", userId);
+  const todaysDate = `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`;
+  try {
+    await updateDoc(docRef, {
+      [todaysDate]: {...currentTodosObject}
+    });
+    return;
+  } catch (error) {
+    console.log("Error updating todos doc: ", error);
   }
 }
 

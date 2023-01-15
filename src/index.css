@@ -1,7 +1,18 @@
+:root {
+  --text-white: white;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
   background-color: gray;
-  
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text-white);
+}
+
+a {
+  color: var(--text-white);
+  text-decoration: none;
+  cursor: pointer;
 }

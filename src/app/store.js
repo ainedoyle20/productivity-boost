@@ -9,7 +9,7 @@ import progressReducer from "../features/progress/progressSlice";
 const rootPersistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user']
+  blacklist: ['progress']
 }
 
 const rootReducer = combineReducers({
