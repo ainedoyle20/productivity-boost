@@ -78,7 +78,7 @@ export const getTodos = async (userId) => {
   try {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      console.log("Document data: ", docSnap.data());
+      // console.log("Document data: ", docSnap.data());
       return docSnap.data();
     } else {
 
@@ -91,6 +91,10 @@ export const getTodos = async (userId) => {
     alert("Sorry somthing went wrong. Please try again later.");
   }
 }
+
+// have select todos percentage in todosSlice.js
+// NOTE: below is NOT a redux function, it is a firebase function (should not effect application)
+// whenever todos percentage changes (useEffect) -> updatePercentage(id, percentage) (firebase function)
 
 export const updateTodos = async (userId, currentTodosObject) => {
   const docRef = doc(db, "todos", userId);
@@ -105,22 +109,80 @@ export const updateTodos = async (userId, currentTodosObject) => {
   }
 }
 
-// fire when user enters progress page
-export const getProgressData = async () => {
-  const docRef = doc(db, "progress", "jnrws31qnRBia6AFghSe");
-    try {
+const setProgressDoc = async (id) => {
+  const docRef = doc(db, "progress", id);
+  try {
+    await setDoc(docRef, {});
+    return;
+  } catch (error) {
+    console.log("Error setting progress doc.");
+  }
+}
+
+// fire when user enters todos page
+export const getProgressData = async (userId) => {
+  const docRef = doc(db, "progress", userId);
+  try {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      console.log("Document data: ", docSnap.data());
       return docSnap.data();
     } else {
-      // docSnap.data() will be undefined
-      // set PROGRESS DOC and DATA FOR CURRENT MONTH for this user (0-2023: {1: 0, 2:0, 3:0...})
-      // await setDoc and return the data set
       console.log("No such document exists!");
+      await setProgressDoc(userId);
+      return {};
     }
   } catch (error) {
     console.log("Error getting progress data: ", error.message);
-    alert("Sorry somthing went wrong. Please try again later.");
+  }
+}
+
+const getDaysInMonth = (month, year) => {
+  return new Date(year, month, 0).getDate();
+}
+
+const createProgressMonthObject = (month, year) => {
+  const daysInMonth = getDaysInMonth(month, year);
+  const obj = {};
+
+  for (let i= 1; i <=daysInMonth; i++) {
+    obj[i] = 0;
+  }
+
+  return obj;
+};
+
+export const updateProgress = async (userId, percentage) => {
+  if (!userId) return;
+
+  const docRef = doc(db, "progress", userId);
+  const monthYearKey = `${new Date().getMonth()}-${new Date().getFullYear()}`;
+  const date = `${new Date().getDate()}`;
+  const month = (new Date().getMonth() + 1);
+  const fullYear = new Date().getFullYear();
+  const progressData = await getProgressData(userId);
+
+  if (!progressData[monthYearKey] || !Object.keys(progressData[monthYearKey]).length) {
+    // set month-year object with dates & percentage for todays date
+    const percentagesObject = createProgressMonthObject(month, fullYear);
+    percentagesObject[date] = percentage;
+    try {
+      await updateDoc(docRef, {
+        [monthYearKey]: {...percentagesObject}
+      });
+      return;
+    } catch (error) {
+      console.log("Error updating progress.");
+    }
+  } else {
+    // update month-year object with percentage for todays date
+    const updatedPercentages = {...progressData[monthYearKey], [date]: percentage};
+    try {
+      await updateDoc(docRef, {
+        [monthYearKey]: {...updatedPercentages}
+      });
+      return;
+    } catch (error) {
+      console.log("Error updating progress.");
+    }
   }
 }

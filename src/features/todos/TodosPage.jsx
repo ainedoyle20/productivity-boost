@@ -1,47 +1,77 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { redirect, useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from "uuid";
 
 import { selectUserId } from "../user/userSlice";
-import { setTodosObject, selectCurrentTodos, selectTodosObject } from "../todos/todosSlice";
-import { getTodos, updateTodos } from "../../app/firebase";
+import { 
+  selectCurrentTodos, 
+  selectTodosList, 
+  fetchTodosFromFirebase, 
+  updateFirebaseTodos, 
+  selectPercentage 
+} from "../todos/todosSlice";
+import { updateProgress} from "../../app/firebase";
+
+import AddTodo from './AddTodo';
+import TodosList from './TodosList';
+
+import styles from "./TodosPage.module.css";
 
 const TodosPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [todaysDate] = useState(`${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`);
+
   const userId = useSelector(selectUserId);
   const todaysTodos = useSelector(state => 
-    selectCurrentTodos(state, `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`)
+    selectCurrentTodos(state, todaysDate)
   );
-  console.log("todays todos: ", todaysTodos);
-
-  const [todoInput, setTodoInput] = useState("");
-
-  const fetchTodosAndStoreInRedux = async (id) => {
-    const todosObject = await getTodos(id);
-    dispatch(setTodosObject(todosObject));
-  }
+  const todosList = useSelector(state => 
+    selectTodosList(state, todaysDate)
+  );
+  const percentageComplete = useSelector(state => selectPercentage(state, todaysDate));
 
   useEffect(() => {
     if (!userId) {
       navigate("/");
     } else {
-      fetchTodosAndStoreInRedux(userId);
+      dispatch(fetchTodosFromFirebase(userId));
     }
   }, [userId])
 
-  const handleAddTodo = async () => {
-    const uniqueId = uuidv4();
-    const newTodoObject = {[uniqueId]: {description: todoInput, isComplete: false }};
-    if (!todaysTodos) {
-      await updateTodos(userId, newTodoObject);
-      console.log("todos updated 1");
+  useEffect(() => {
+    if (percentageComplete === undefined) {
+      return;
     } else {
-      await updateTodos(userId, {...todaysTodos, ...newTodoObject});
-      console.log("todos updated 2");
+      updateProgress(userId, percentageComplete);
     }
+  }, [percentageComplete]);
+
+  const handleAddTodo = (newTodoObject) => {
+    if (!todaysTodos) {
+      dispatch(updateFirebaseTodos({id: userId, todaysTodosObject: newTodoObject }));
+    } else {
+      dispatch(updateFirebaseTodos({id: userId, todaysTodosObject: {...todaysTodos, ...newTodoObject}}));
+    }
+  }
+
+  const handleEditTodo = (todoId, updatedDescription) => {
+    const updatedObject = {...todaysTodos, [todoId]: {...todaysTodos[todoId], description: updatedDescription}}
+    dispatch(updateFirebaseTodos({id: userId, todaysTodosObject: updatedObject }));
+  }
+
+  const handleTodoStatus = (todoId) => {
+    const updatedTodo = {...todaysTodos[todoId], isComplete: !todaysTodos[todoId].isComplete};
+    const updatedObject = {...todaysTodos, [todoId]: {...updatedTodo}};
+    dispatch(updateFirebaseTodos({id: userId, todaysTodosObject: updatedObject }))
+  }
+
+  const handleDeleteTodo = (todoId) => {
+    const todoIds = Object.keys(todaysTodos).filter(id => id !== todoId);
+    const updatedTodos = {};
+    todoIds.forEach(id => updatedTodos[id] = todaysTodos[id]);
+    dispatch(updateFirebaseTodos({id: userId, todaysTodosObject: updatedTodos }));
   }
 
   if (!userId) {
@@ -49,15 +79,17 @@ const TodosPage = () => {
   }
 
   return (
-    <div>
-      <span>Todos Page</span>
-      <input 
-        type="text"
-        name="description"
-        value={todoInput}
-        onChange={(e) => setTodoInput(e.target.value)}
-      />
-      <button type='button' onClick={handleAddTodo}>Add Todo</button>
+    <div className={styles.container}>
+      <div className={styles.scheduleContainer}>
+        <AddTodo handleAddTodo={handleAddTodo} />
+        <TodosList 
+          todosList={todosList} 
+          todaysTodos={todaysTodos} 
+          handleTodoStatus={handleTodoStatus} 
+          handleEditTodo={handleEditTodo}
+          handleDeleteTodo={handleDeleteTodo}
+        />
+      </div>
     </div>
   );
 }

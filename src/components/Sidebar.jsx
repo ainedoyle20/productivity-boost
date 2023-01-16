@@ -5,6 +5,9 @@ import { useLocation } from 'react-router-dom';
 import { logoutUser } from "../app/firebase";
 import { removeUserId } from "../features/user/userSlice";
 import { setTodosObject } from "../features/todos/todosSlice";
+import { setProgressObject } from "../features/progress/progressSlice";
+
+import styles from "./Sidebar.module.css";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -15,6 +18,7 @@ const Sidebar = () => {
     await logoutUser();
     dispatch(removeUserId());
     dispatch(setTodosObject({}));
+    dispatch(setProgressObject({}));
   }
 
   if (pathname !== "/todos" && pathname !== "/calendar" && pathname !== "/progress") {
@@ -22,9 +26,17 @@ const Sidebar = () => {
   }
 
   return (
-    <div>
-      <span>Sidebar</span>
-      <span onClick={handleLogout}>Logout</span>
+    <div className={styles.container}>
+      <div className={styles.navs}>
+        <span>Todos</span>
+        <span>Progress</span>
+      </div>
+      <span 
+        className={styles.logout}
+        onClick={handleLogout}
+      >
+        Logout
+      </span>
     </div>
   )
 }
