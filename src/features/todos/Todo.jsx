@@ -6,7 +6,7 @@ import EditTodo from './EditTodo';
 
 import styles from "./TodosPage.module.css";
 
-const Todo = ({ todo: { description, isComplete, todoId }, handleTodoStatus, handleEditTodo, handleDeleteTodo, inSchedule}) => {
+const Todo = ({ todo: { description, isComplete, todoId }, handleTodoStatus, handleEditTodo, handleDeleteTodo, inSchedule, isPastDate}) => {
   const [showEdit, setShowEdit] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
 
@@ -27,29 +27,33 @@ const Todo = ({ todo: { description, isComplete, todoId }, handleTodoStatus, han
       ) : (
         <>
           <p className={styles.description}>{description}</p>
-          <div className={`${styles.settings} ${showOptions ? styles.optionsShown : ""}`}>
-            <span 
-              className={`${styles.settingsIconContainer} ${showOptions ? styles.rotateIcon : ""}`} 
-              onClick={() => setShowOptions(prev => !prev)}
-            >
-              <CiSettings className={styles.settingsIcon} />
-            </span>
-            <div className={styles.options}>
-              <span onClick={() => {
-                setShowEdit(true);
-                setShowOptions(false);
-              }}>
-                <AiOutlineEdit />
-              </span>
+          {!inSchedule || (inSchedule && !isPastDate) ? (
+            <div className={`${styles.settings} ${showOptions ? styles.optionsShown : ""}`}>
               <span 
-                onClick={() => {
-                  handleDeleteTodo(todoId);
-                }}
+                className={`${styles.settingsIconContainer} ${showOptions ? styles.rotateIcon : ""}`} 
+                onClick={() => setShowOptions(prev => !prev)}
               >
-                <AiOutlineDelete />
+                <CiSettings className={styles.settingsIcon} />
               </span>
+              <div className={styles.options}>
+                <span onClick={() => {
+                  setShowEdit(true);
+                  setShowOptions(false);
+                }}>
+                  <AiOutlineEdit />
+                </span>
+                <span 
+                  onClick={() => {
+                    handleDeleteTodo(todoId);
+                  }}
+                >
+                  <AiOutlineDelete />
+                </span>
+              </div>
             </div>
-          </div>
+          ) 
+          : null
+          }
         </>
       )}
     </div>

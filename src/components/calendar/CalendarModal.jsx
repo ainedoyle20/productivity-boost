@@ -1,17 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { selectTodosList, selectCurrentTodos, scheduleFirebaseTodos } from "../../features/todos/todosSlice";
+
+import { formatDateForPastCheck, checkIfInPast, addTodo } from "../../app/utils";
+
+import TodosList from '../../features/todos/TodosList';
+import AddTodo from '../../features/todos/AddTodo';
 
 const CalendarModal = ({ date, setScheduleModal, userId }) => {
   const dispatch = useDispatch();
 
   const currentDateTodosObject = useSelector((state) => selectCurrentTodos(state, date));
   const todosList = useSelector((state) => selectTodosList(state, date));
-  // console.log("todosList: ", todosList);
 
-  const [tempList, setTempList] = useState(todosList ? [...todosList] : []);
-  const [tempObject, setTempObject] = useState(currentDateTodosObject ? {...currentDateTodosObject} : {});
+  const [isPastDate, setIsPastDate] = useState(false);
+
+  useEffect(() => {
+    // Checking if date selected is past date
+    // if isPastDate, then there won't be an option to edit todos listed
+    const splitDate = date.split("-");
+    const day = Number(splitDate[0]);
+    const month = Number(splitDate[1]);
+    const year = Number(splitDate[2]);
+
+    const formattedDate = formatDateForPastCheck(day, month, year);
+    const inPast = checkIfInPast(formattedDate);
+
+    setIsPastDate(inPast);
+  }, [])
 
   const closeModal = () => {
     setScheduleModal({ 
@@ -21,9 +38,15 @@ const CalendarModal = ({ date, setScheduleModal, userId }) => {
     });
   }
 
-  const scheduleTodos = () => {
-    dispatch(scheduleFirebaseTodos({ id: userId, scheduledTodosObject: {tempObject}, date }));
-    closeModal();
+  const handleAddTodo = (newTodo) => {
+    addTodo(newTodo, currentDateTodosObject, userId, dispatch, date, scheduleFirebaseTodos);
+  }
+
+  const handleEditTodo = () => {
+    console.log("edit");
+  }
+  const handleDeleteTodo = () => {
+    console.log("delete");
   }
 
   return (
@@ -37,10 +60,40 @@ const CalendarModal = ({ date, setScheduleModal, userId }) => {
         border: "2px solid black",
         top: "50%",
         left: "50%",
-        transform: "translate(-50%, -50%)"
+        transform: "translate(-50%, -50%)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center"
       }}
     >
-      <span onClick={closeModal}>Calendar Modal</span>
+      <div 
+        style={{ 
+          width: "100%", 
+          border: "1px solid black", 
+          display: "flex", 
+          justifyContent: "flex-end", 
+          marginBottom: "30px",
+          padding: "10px"
+        }}
+      >
+        <span onClick={closeModal} style={{ fontSize: "20px", cursor: "pointer"}}>
+          Close
+        </span>
+      </div>
+
+      <AddTodo 
+        handleAddTodo={handleAddTodo}
+        inSchedule={true} 
+        isPastDate={isPastDate}
+      />
+      <TodosList 
+        todosList={todosList} 
+        todaysTodos={currentDateTodosObject} 
+        handleEditTodo={handleEditTodo} 
+        handleDeleteTodo={handleDeleteTodo}
+        inSchedule={true} 
+        isPastDate={isPastDate}
+      />
     </div>
   );
 }

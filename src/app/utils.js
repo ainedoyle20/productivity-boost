@@ -106,3 +106,28 @@ export const getDataPerMonth = (datePercentageObject, currentMonthYear) => {
 
   return { xAxis, yAxis };
 }
+
+export const formatDateForPastCheck = (date, month, year) => {
+  return `${year}-${month + 1}-${date}`;
+}
+
+export const checkIfInPast = (formattedDate) => {
+  const today = new Date();
+  const dateEntered = new Date(formattedDate);
+
+  // Setting the hour of todays date to midnight
+  // so the comparison only returns `true` if the passed-in date
+  // is at least yesterday
+  today.setHours(0, 0, 0, 0);
+
+  return dateEntered < today;
+}
+
+// todo functions
+export const addTodo = (newTodo, currentDateTodosObject, userId, dispatch, date, reduxFunc) => {
+  if (!currentDateTodosObject) {
+    dispatch(reduxFunc({id: userId, scheduledTodosObject: newTodo, date }));
+  } else {
+    dispatch(reduxFunc({id: userId, scheduledTodosObject: {...currentDateTodosObject, ...newTodo}, date }));
+  }
+}

@@ -4,7 +4,7 @@ import Todo from './Todo';
 
 import styles from "./TodosPage.module.css";
 
-const TodosList = ({ todosList, todaysTodos, handleTodoStatus, handleEditTodo, handleDeleteTodo }) => {
+const TodosList = ({ todosList, todaysTodos, handleTodoStatus, handleEditTodo, handleDeleteTodo, inSchedule, isPastDate }) => {
   return (
     <div className={styles.todosList}>
       {todaysTodos ? (
@@ -15,6 +15,8 @@ const TodosList = ({ todosList, todaysTodos, handleTodoStatus, handleEditTodo, h
             handleTodoStatus={handleTodoStatus} 
             handleEditTodo={handleEditTodo}
             handleDeleteTodo={handleDeleteTodo}
+            inSchedule={inSchedule}
+            isPastDate={isPastDate}
           />
         ))
       ) : (

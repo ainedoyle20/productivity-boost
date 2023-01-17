@@ -3,8 +3,12 @@ import { v4 as uuidv4 } from "uuid";
 
 import styles from "./TodosPage.module.css";
 
-const AddTodo = ({ handleAddTodo }) => {
+const AddTodo = ({ handleAddTodo, inSchedule, isPastDate }) => {
   const [todoInput, setTodoInput] = useState("");
+
+  if (inSchedule && isPastDate) {
+    return null;
+  }
 
   return (
     <div className={styles.addTodoContainer}>

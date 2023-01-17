@@ -59,7 +59,7 @@ const CalendarPage = () => {
       <Days days={days} monthYear={monthYear} setScheduleModal={setScheduleModal} />
 
       {scheduleModal.showModal ? (
-        <CalendarModal date={scheduleModal.date} setScheduleModal={setScheduleModal} />
+        <CalendarModal date={scheduleModal.date} setScheduleModal={setScheduleModal} userId={userId} />
       ) : null}
     </div>
   );
