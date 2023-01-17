@@ -1,5 +1,5 @@
 import { createSelector, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getTodos, updateTodos } from "../../app/firebase";
+import { getTodos, scheduleTodos, updateTodos } from "../../app/firebase";
 
 const initialState = {
   todosObject: {},
@@ -13,6 +13,13 @@ export const fetchTodosFromFirebase = createAsyncThunk("todos/fetchTodosFromFire
 export const updateFirebaseTodos = createAsyncThunk("todos/updateFirebaseTodos", async (data) => {
   const {id, todaysTodosObject} = data;
   await updateTodos(id, todaysTodosObject);
+  const todosObject = await getTodos(id);
+  return todosObject;
+});
+
+export const scheduleFirebaseTodos = createAsyncThunk("todos/scheduleFirebaseTodos", async (data) => {
+  const { id, scheduledTodosObject, date } = data;
+  await scheduleTodos(id, scheduledTodosObject, date);
   const todosObject = await getTodos(id);
   return todosObject;
 });
@@ -31,6 +38,9 @@ const todosSlice = createSlice({
         state.todosObject = action.payload;
       })
       .addCase(updateFirebaseTodos.fulfilled, (state, action) => {
+        state.todosObject = action.payload;
+      })
+      .addCase(scheduleFirebaseTodos.fulfilled, (state, action) => {
         state.todosObject = action.payload;
       })
   }

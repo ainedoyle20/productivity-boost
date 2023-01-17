@@ -6,19 +6,22 @@ import EditTodo from './EditTodo';
 
 import styles from "./TodosPage.module.css";
 
-const Todo = ({ todo: { description, isComplete, todoId }, handleTodoStatus, handleEditTodo, handleDeleteTodo}) => {
+const Todo = ({ todo: { description, isComplete, todoId }, handleTodoStatus, handleEditTodo, handleDeleteTodo, inSchedule}) => {
   const [showEdit, setShowEdit] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
 
 
   return (
     <div className={styles.todo}>
-      <span 
-        className={styles.status}
-        onClick={() => handleTodoStatus(todoId)}
-      >
-        {isComplete ? "√" : ""}
-      </span>
+      {!inSchedule ? (
+        <span 
+          className={styles.status}
+          onClick={() => handleTodoStatus(todoId)}
+        >
+          {isComplete ? "√" : ""}
+        </span>
+      ) : null}
+
       {showEdit ? (
         <EditTodo initialDescription={description} setShowEdit={setShowEdit} handleEditTodo={handleEditTodo} todoId={todoId} />
       ) : (

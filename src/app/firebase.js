@@ -109,6 +109,18 @@ export const updateTodos = async (userId, currentTodosObject) => {
   }
 }
 
+export const scheduleTodos = async (userId, todosObject, date) => {
+  const docRef = doc(db, "todos", userId);
+  try {
+    await updateDoc(docRef, {
+      [date]: {...todosObject}
+    });
+    return;
+  } catch (error) {
+    console.log("Error scheduling todos: ", error);
+  }
+}
+
 const setProgressDoc = async (id) => {
   const docRef = doc(db, "progress", id);
   try {

@@ -6,7 +6,7 @@ import LandingPage from "./components/LandingPage";
 import AuthPage from "./components/AuthPage";
 import TodosPage from "./features/todos/TodosPage";
 import ProgressPage from "./features/progress/ProgressPage";
-import CalendarPage from './features/calendar/CalendarPage';
+import CalendarPage from './components/calendar/CalendarPage';
 
 const App = () => {
   return (
