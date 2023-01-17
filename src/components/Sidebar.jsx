@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 import { logoutUser } from "../app/firebase";
 import { removeUserId } from "../features/user/userSlice";
@@ -28,8 +28,9 @@ const Sidebar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.navs}>
-        <span>Todos</span>
-        <span>Progress</span>
+        <Link to="/todos">Todos</Link>
+        <Link to="/progress">Progress</Link>
+        <Link to="/calendar">Schedule</Link>
       </div>
       <span 
         className={styles.logout}

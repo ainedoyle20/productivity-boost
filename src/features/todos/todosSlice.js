@@ -24,9 +24,6 @@ const todosSlice = createSlice({
     setTodosObject(state, action) {
       state.todosObject = action.payload;
     },
-    updateStatus(state, action) {
-      state.status = action.payload;
-    }
   },
   extraReducers(builder) {
     builder
@@ -91,6 +88,6 @@ export const selectPercentage = createSelector(
   }
 );
 
-export const { setTodosObject, updateStatus} = todosSlice.actions;
+export const { setTodosObject } = todosSlice.actions;
 
 export default todosSlice.reducer;

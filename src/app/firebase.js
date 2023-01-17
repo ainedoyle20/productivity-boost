@@ -157,17 +157,18 @@ export const updateProgress = async (userId, percentage) => {
   const docRef = doc(db, "progress", userId);
   const monthYearKey = `${new Date().getMonth()}-${new Date().getFullYear()}`;
   const date = `${new Date().getDate()}`;
-  const month = (new Date().getMonth() + 1);
-  const fullYear = new Date().getFullYear();
+  // const month = (new Date().getMonth() + 1);
+  // const fullYear = new Date().getFullYear();
   const progressData = await getProgressData(userId);
 
   if (!progressData[monthYearKey] || !Object.keys(progressData[monthYearKey]).length) {
     // set month-year object with dates & percentage for todays date
-    const percentagesObject = createProgressMonthObject(month, fullYear);
-    percentagesObject[date] = percentage;
+
+    // const percentagesObject = createProgressMonthObject(month, fullYear);
+    // percentagesObject[date] = percentage;
     try {
       await updateDoc(docRef, {
-        [monthYearKey]: {...percentagesObject}
+        [monthYearKey]: {[date]: percentage}
       });
       return;
     } catch (error) {

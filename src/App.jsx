@@ -6,6 +6,7 @@ import LandingPage from "./components/LandingPage";
 import AuthPage from "./components/AuthPage";
 import TodosPage from "./features/todos/TodosPage";
 import ProgressPage from "./features/progress/ProgressPage";
+import CalendarPage from './features/calendar/CalendarPage';
 
 const App = () => {
   return (
@@ -19,6 +20,8 @@ const App = () => {
         <Route path="todos" element={<TodosPage />} />
 
         <Route path="progress" element={<ProgressPage />} />
+
+        <Route path="calendar" element={<CalendarPage />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
 
