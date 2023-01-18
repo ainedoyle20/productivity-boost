@@ -4,7 +4,7 @@ import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai"
 
 import EditTodo from './EditTodo';
 
-import styles from "./TodosPage.module.css";
+import styles from "./Todos.module.css";
 
 const Todo = ({ todo: { description, isComplete, todoId }, handleTodoStatus, handleEditTodo, handleDeleteTodo, inSchedule, isPastDate}) => {
   const [showEdit, setShowEdit] = useState(false);
@@ -27,6 +27,7 @@ const Todo = ({ todo: { description, isComplete, todoId }, handleTodoStatus, han
       ) : (
         <>
           <p className={styles.description}>{description}</p>
+          
           {!inSchedule || (inSchedule && !isPastDate) ? (
             <div className={`${styles.settings} ${showOptions ? styles.optionsShown : ""}`}>
               <span 

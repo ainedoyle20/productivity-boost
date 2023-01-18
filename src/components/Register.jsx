@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { RiLockPasswordLine } from "react-icons/ri";
+import { TfiEmail } from "react-icons/tfi";
 
 import { addUserId } from "../features/user/userSlice";
 import { registerUser } from "../app/firebase";
+
+import styles from "./Register.module.css";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -46,39 +50,52 @@ const Register = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleOnSubmit}>
-        <label htmlFor='email'>Email</label>
-        <input 
-          id="email"
-          type="text"
-          name="email"
-          value={formInfo.email}
-          onChange={(e) => onInputChanged(e)}
-          required
-        />
+    <div className={styles.container}>
+      <form onSubmit={handleOnSubmit} className={styles.registerForm}>
 
-        <label htmlFor='password'>Password</label>
-        <input 
-          id="password"
-          type="password"
-          name="password"
-          value={formInfo.password}
-          onChange={(e) => onInputChanged(e)}
-          required
-        />
+        <div className={styles.inputContainers}>
+          <span>
+            <TfiEmail />
+          </span>
+          <input 
+            type="text"
+            name="email"
+            placeholder='Email'
+            value={formInfo.email}
+            onChange={(e) => onInputChanged(e)}
+            required
+          />
+        </div>
 
-        <label htmlFor='confirmPassword'>Confirm Password</label>
-        <input 
-          id="confirmPassword"
-          type="password"
-          name="confirmPassword"
-          value={formInfo.confirmPassword}
-          onChange={(e) => onInputChanged(e)}
-          required
-        />
+        <div className={styles.inputContainers}>
+          <span>
+            <RiLockPasswordLine />
+          </span>
+          <input 
+            type="password"
+            name="password"
+            placeholder='Password'
+            value={formInfo.password}
+            onChange={(e) => onInputChanged(e)}
+            required
+          />
+        </div>
 
-        <button type='submit'>Register</button>
+        <div className={styles.inputContainers}>
+          <span>
+            <RiLockPasswordLine />
+          </span>
+          <input 
+            type="password"
+            name="confirmPassword"
+            placeholder='Confirm Password'
+            value={formInfo.confirmPassword}
+            onChange={(e) => onInputChanged(e)}
+            required
+          />
+        </div>
+
+        <button type='submit' className={styles.registerBtn}>Register</button>
       </form>
     </div>
   )

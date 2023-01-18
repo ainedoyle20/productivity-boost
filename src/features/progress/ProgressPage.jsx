@@ -7,8 +7,7 @@ import { Chart } from 'chart.js/auto';
 import { fetchProgressData, selectChartData } from "./progressSlice";
 import { selectUserId } from "../user/userSlice";
 
-import { months } from "../../app/utils";
-
+import Header from '../../components/calendar/Header';
 
 const ProgressPage = () => {
   const dispatch = useDispatch();
@@ -93,26 +92,6 @@ const ProgressPage = () => {
     ],
   }
 
-  const decreaseMonth = () => {
-    const { month, year } = monthYear;
-
-    if (month === 0) {
-      setMonthYear({ month: 11, year: (year - 1)});
-    } else {
-      setMonthYear({ month: (month - 1), year });
-    }
-  }
-
-  const increaseMonth = () => {
-    const { month, year } = monthYear;
-
-    if (month === 11) {
-      setMonthYear({ month: 0, year: (year + 1)});
-    } else {
-      setMonthYear({ month: (month + 1), year });
-    }
-  }
-
   return (
     <div style={{ width: "900px", height: "100vh", margin: "auto", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "20px", border: "1px solid black"}}>
       {!chartData ? (
@@ -123,16 +102,19 @@ const ProgressPage = () => {
       ) : null
       }
 
-      <div style={{ width: "300px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "30px", border: "1px solid black" }}>
-        <span onClick={decreaseMonth} style={{ fontSize: "14px", cursor: "pointer"}}>Prev</span>
+      {chartData 
+        ? chartData.yAxis.slice(0, chartData.length-1).reduce((acc, val) => acc + val, 0) === 0 
+          ? (
+            <div style={{ fontSize: "20px", position: "absolute", cursor: "default", display: "flex", alignItems: "center", flexDirection: "column"}}>
+              <span>0%</span>
+              <span>You have not completed any of your todos.</span> 
+            </div>
+          ) 
+          : null 
+        : null
+      }
 
-        <div style={{ display: "flex", justifyContent: "space-between", border: "1px solid black", width: "140px"}}>
-          <span>{months[monthYear.month]}</span>
-          <span>{monthYear.year}</span>
-        </div>
-
-        <span onClick={increaseMonth} style={{ fontSize: "14px", cursor: "pointer"}}>Next</span>
-      </div>
+      <Header monthYear={monthYear} setMonthYear={setMonthYear}  /> 
 
       <div style={{ display: "flex", width: "auto"}}>
         <span

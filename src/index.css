@@ -1,18 +1,21 @@
 :root {
   --text-white: white;
+  --background-black: black;
+  --text-green: #49fb35;
 }
 
 html,
 body {
   margin: 0;
   padding: 0;
-  background-color: gray;
+  background-color: black;
   font-family: 'Montserrat', sans-serif;
-  color: var(--text-white);
+  color: var(--text-green);
+  scroll-behavior: smooth;
 }
 
 a {
-  color: var(--text-white);
+  color: var(--text-green);
   text-decoration: none;
   cursor: pointer;
 }

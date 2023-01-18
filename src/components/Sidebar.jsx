@@ -1,6 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
+import { FaTasks } from "react-icons/fa";
+import { GiProgression } from "react-icons/gi";
+import { ImCalendar } from "react-icons/im";
+import { BiLogOut } from "react-icons/bi";
 
 import { logoutUser } from "../app/firebase";
 import { removeUserId } from "../features/user/userSlice";
@@ -28,15 +32,21 @@ const Sidebar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.navs}>
-        <Link to="/todos">Todos</Link>
-        <Link to="/progress">Progress</Link>
-        <Link to="/calendar">Schedule</Link>
+        <Link to="/todos">
+          <FaTasks />
+        </Link>
+        <Link to="/progress">
+          <GiProgression />
+        </Link>
+        <Link to="/calendar">
+          <ImCalendar />
+        </Link>
       </div>
       <span 
         className={styles.logout}
         onClick={handleLogout}
       >
-        Logout
+        <BiLogOut />
       </span>
     </div>
   )

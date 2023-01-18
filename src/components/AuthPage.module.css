@@ -1,0 +1,49 @@
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.toggles {
+  border: 1px solid var(--text-green);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.showLogin .toggleLogin {
+  color: black;
+  background-color: var(--text-green);
+}
+
+.showRegister .toggleRegister {
+  color: black;
+  background-color: var(--text-green);
+}
+
+.toggleLogin {
+  display: flex;
+  justify-content: center;
+  width: 100px;
+  padding: 5px 0px;
+  border-right: 1px solid var(--text-green);
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.toggleRegister {
+  display: flex;
+  justify-content: center;
+  width: 100px;
+  padding: 5px 0px;
+  border-left: 1px solid var(--text-green);
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}

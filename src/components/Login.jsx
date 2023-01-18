@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { TfiEmail } from "react-icons/tfi";
+import { RiLockPasswordLine } from "react-icons/ri";
 
 import { addUserId } from "../features/user/userSlice";
 import { loginUser } from "../app/firebase";
+
+import styles from "./Login.module.css";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -36,29 +40,41 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleOnSubmit}>
-        <label htmlFor='email'>Email</label>
-        <input 
-          id="email"
-          name="email"
-          type="email"
-          value={loginInfo.email}
-          onChange={(e) => onLoginInfoChanged(e)}
-          required
-        />
+    <div className={styles.container}>
+      <form onSubmit={handleOnSubmit} className={styles.loginForm}>
+        
+        <div className={styles.inputContainers}>
+          <span>
+            <TfiEmail />
+          </span>
+          <input 
+            id="email"
+            name="email"
+            type="email"
+            placeholder='Email'
+            value={loginInfo.email}
+            onChange={(e) => onLoginInfoChanged(e)}
+            required
+          />
+        </div>
 
-        <label htmlFor='password'>Password</label>
-        <input 
-          id="password"
-          name="password"
-          type="password"
-          value={loginInfo.password}
-          onChange={(e) => onLoginInfoChanged(e)}
-          required
-        />
+        <div className={styles.inputContainers}>
+          <span>
+            <RiLockPasswordLine />
+          </span>
+          <input 
+            id="password"
+            name="password"
+            type="password"
+            placeholder='Password'
+            value={loginInfo.password}
+            onChange={(e) => onLoginInfoChanged(e)}
+            required
+          />
+        </div>
+        
 
-        <button type='submit'>Login</button>
+        <button type='submit' className={styles.loginBtn}>Login</button>
       </form>
     </div>
   )

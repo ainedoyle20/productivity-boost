@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from "uuid";
+import {IoMdAddCircleOutline} from "react-icons/io";
 
-import styles from "./TodosPage.module.css";
+import styles from "./Todos.module.css";
 
 const AddTodo = ({ handleAddTodo, inSchedule, isPastDate }) => {
   const [todoInput, setTodoInput] = useState("");
@@ -12,19 +13,22 @@ const AddTodo = ({ handleAddTodo, inSchedule, isPastDate }) => {
 
   return (
     <div className={styles.addTodoContainer}>
-      <input 
+      <textarea 
+        className={styles.addTodoInput}
         type="text"
         name="description"
+        placeholder='Add Task'
         value={todoInput}
         onChange={(e) => setTodoInput(e.target.value)}
       />
-      <button type='button' 
+      <span 
+        className={styles.addTodoBtn}
         onClick={() => 
           handleAddTodo({[uuidv4()]: {description: todoInput, isComplete: false, timestamp: Date.now() }})
         }
       >
-        Add Todo
-      </button>
+        <IoMdAddCircleOutline />
+      </span>
     </div>
   );
 }

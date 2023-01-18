@@ -1,0 +1,80 @@
+.icon {
+  position: absolute;
+  top: 150px;
+  right: 300px;
+  width: 200px;
+}
+
+.links {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 18px;
+}
+
+.textContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-left: 1px solid var(--text-green);
+  padding: 20px 0px 20px 40px;
+  width: 80vw;
+}
+
+.text1 {
+  font-size: 90px;
+  display: flex;
+  gap: 20px;
+}
+
+.text2 {
+  font-size: 150px;
+}
+
+.button {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid var(--text-green);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.instructions {
+  position: absolute;
+  top: 110%;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 50px;
+}
+
+.instruction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.step {
+  font-size: 30px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--text-green);
+  padding: 0px 10px
+}
+
+.stepDescription {
+  font-size: 20px;
+}

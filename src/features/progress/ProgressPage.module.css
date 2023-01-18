@@ -1,0 +1,35 @@
+.container {
+  width: 900px;
+  height: 100vh;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid black;
+}
+
+.nodata {
+  position: absolute;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: default;
+}
+
+.options {
+  display: flex; 
+  width: auto;
+}
+
+.option {
+  cursor: "pointer"; 
+  width: "100px"; 
+  padding: "2px 0px"; 
+  border: "1px solid black";
+  display: "flex"; 
+  justify-content: "center"; 
+  align-items: "center";
+  font-size: "14px";
+}

@@ -2,12 +2,12 @@ import React from 'react';
 
 import Todo from './Todo';
 
-import styles from "./TodosPage.module.css";
+import styles from "./Todos.module.css";
 
 const TodosList = ({ todosList, todaysTodos, handleTodoStatus, handleEditTodo, handleDeleteTodo, inSchedule, isPastDate }) => {
   return (
     <div className={styles.todosList}>
-      {todaysTodos ? (
+      {todaysTodos && todosList?.length ? (
         todosList.map((todo) => (
           <Todo 
             key={todo.todoId} 

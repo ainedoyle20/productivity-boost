@@ -16,6 +16,20 @@ const Days = ({ days, monthYear, setScheduleModal }) => {
     setScheduleModal({ showModal: true, date: formatedDate });
   }
 
+  const hasTodosCheck = (day) => {
+    console.log("todos checking...");
+    let hasTodos;
+    const tempDate = `${day}-${monthYear.month}-${monthYear.year}`;
+
+    if (todosObject[tempDate]) {
+      hasTodos = Object.keys(todosObject[tempDate]).length ? true : false;
+    } else {
+      hasTodos = false;
+    }
+
+    return hasTodos;
+  }
+
   return (
     <div 
       style={{ 
@@ -32,7 +46,11 @@ const Days = ({ days, monthYear, setScheduleModal }) => {
           <Day 
             key={idx} 
             date={day} 
-            hasTodos={!!todosObject[`${day}-${monthYear.month}-${monthYear.year}`]} 
+            hasTodos={
+              todosObject[`${day}-${monthYear.month}-${monthYear.year}`] ? (
+                Object.keys(todosObject[`${day}-${monthYear.month}-${monthYear.year}`]).length ? true : false
+              ) : false
+            } 
             selectDay={selectDay}
           />
         ))

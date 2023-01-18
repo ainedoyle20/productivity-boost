@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import styles from "./TodosPage.module.css";
+import styles from "./Todos.module.css";
 
 const EditTodo = ({ initialDescription, setShowEdit, handleEditTodo, todoId }) => {
   const [editInfo, setEditInfo] = useState(`${initialDescription}`);

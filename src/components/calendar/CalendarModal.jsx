@@ -55,7 +55,7 @@ const CalendarModal = ({ date, setScheduleModal, userId, monthYear }) => {
 
   const handleAddTodo = (newTodoObject) => {
     if (!currentDateTodosObject) {
-      dispatch(scheduleFirebaseTodos({id: userId, scheduledTodosObject: newTodoObject }, date));
+      dispatch(scheduleFirebaseTodos({id: userId, scheduledTodosObject: newTodoObject, date }));
     } else {
       dispatch(scheduleFirebaseTodos({id: userId, scheduledTodosObject: {...currentDateTodosObject, ...newTodoObject}, date}));
     }

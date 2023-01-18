@@ -1,0 +1,135 @@
+.calendarPage {
+  width: 100vw; 
+  height: 100vh; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;
+}
+
+/* .header {
+  border: "1px solid black"; 
+  font-size: "30px"; 
+  display: "flex"; 
+  justify-content: "space-between"; 
+  align-items: "center"; 
+  width: "500px"; 
+  margin-bottom: "40px";
+}
+
+.headerToggles {
+  cursor: pointer;
+} */
+
+.header {
+  width: 300px; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  gap: 30px; 
+  border: 1px solid black;
+}
+
+.headerMonthYear {
+  display: flex; 
+  justify-content: space-between; 
+  border: 1px solid black; 
+  width: 140px;
+}
+
+.headerButtons {
+  font-size: 14px; 
+  cursor: pointer;
+}
+
+.weekdays {
+  border: 1px solid black; 
+  border-bottom: none;
+  width: 600px; 
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.weekday {
+  font-size: 12px; 
+  border: 1px solid black; 
+  display: flex; 
+  justify-content: center;
+}
+
+.days {
+  border: 1px solid black; 
+  width: 600px;
+  height: 500px; 
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.day {
+  border: 1px solid black;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  cursor: pointer;
+}
+
+.dayDate {
+  margin-right: 5px;
+}
+
+.hasTodos {
+  width: 15px; 
+  height: 15px; 
+  border-radius: 100%; 
+  background-color: lightblue;
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+}
+
+.modalContainer {
+  position: absolute; 
+  width: 100vw; 
+  height: 100vh; 
+  z-index: 10; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: gray;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+  height: 600px;
+}
+
+.modalHeading {
+  width: 100%; 
+  border: 1px solid black; 
+  display: flex; 
+  justify-content: space-between; 
+  margin-bottom: 30px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.monthYearDisplay {
+  display: flex; 
+  gap: 10px;
+}
+
+.closeModal {
+  cursor: pointer;
+}
+
+.fullDayContainer {
+  border: 1px solid black; 
+  font-size: 25px;
+}
+

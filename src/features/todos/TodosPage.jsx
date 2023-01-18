@@ -15,7 +15,7 @@ import { updateProgress} from "../../app/firebase";
 import AddTodo from './AddTodo';
 import TodosList from './TodosList';
 
-import styles from "./TodosPage.module.css";
+import styles from "./Todos.module.css";
 
 const TodosPage = () => {
   const dispatch = useDispatch();
