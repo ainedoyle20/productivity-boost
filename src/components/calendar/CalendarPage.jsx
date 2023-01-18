@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { selectUserId } from "../../features/user/userSlice";
 
-import { getDaysInMonth } from "../../app/utils";
+import { getDaysInMonth, getPaddingDays } from "../../app/utils";
 
 import Header from './Header';
 import Weekdays from './Weekdays';
@@ -33,7 +33,7 @@ const CalendarPage = () => {
     console.log("Running.");
 
     let temp = [];
-    const paddingDays = 5;
+    const paddingDays = getPaddingDays(monthYear.year, monthYear.month);
     const daysInMonth = getDaysInMonth((monthYear.month + 1), monthYear.year);
 
     let i = 1;
@@ -59,7 +59,12 @@ const CalendarPage = () => {
       <Days days={days} monthYear={monthYear} setScheduleModal={setScheduleModal} />
 
       {scheduleModal.showModal ? (
-        <CalendarModal date={scheduleModal.date} setScheduleModal={setScheduleModal} userId={userId} />
+        <CalendarModal 
+          date={scheduleModal.date} 
+          setScheduleModal={setScheduleModal} 
+          userId={userId} 
+          monthYear={monthYear}
+        />
       ) : null}
     </div>
   );

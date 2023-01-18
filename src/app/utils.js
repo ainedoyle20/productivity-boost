@@ -111,6 +111,48 @@ export const formatDateForPastCheck = (date, month, year) => {
   return `${year}-${month + 1}-${date}`;
 }
 
+export const getFirstDayOfMonth = (year, month) => {
+  const dateString = new Date(year, month, 1).toString();
+  const firstDayPartial = dateString.split(" ")[0];
+  let fullFirstDay;
+  weekdays.forEach(wkday => wkday.includes(firstDayPartial) ? fullFirstDay = wkday : wkday);
+  return fullFirstDay;
+}
+
+export const getPaddingDays = (year, month) => {
+  const firstDayOfMonth = getFirstDayOfMonth(year, month);
+  const indexOfFirstDay = weekdays.indexOf(firstDayOfMonth);
+  return indexOfFirstDay;
+}
+
+export const getDateMonthYear = (date) => {
+  const splitDate = date.split("-");
+  const day = Number(splitDate[0]);
+  const month = Number(splitDate[1]);
+  const year = Number(splitDate[2]);
+  return { day, month, year };
+}
+
+export const getFullMonth = (month) => {
+  if (month === undefined || month === null) return null;
+  
+  return months[month];
+}
+
+export const getDayOfWeek = (date) => {
+  const { day, month, year } = getDateMonthYear(date);
+
+  const currentday = new Date(`${year}-${month + 1}-${day}`).getDay();
+
+  if (currentday === 0) {
+    return "Sunday";
+  } else {
+    const dayOfWeek = weekdays[currentday - 1];
+
+    return dayOfWeek;
+  }
+}
+
 export const checkIfInPast = (formattedDate) => {
   const today = new Date();
   const dateEntered = new Date(formattedDate);
@@ -130,4 +172,16 @@ export const addTodo = (newTodo, currentDateTodosObject, userId, dispatch, date,
   } else {
     dispatch(reduxFunc({id: userId, scheduledTodosObject: {...currentDateTodosObject, ...newTodo}, date }));
   }
+}
+
+export const editTodo = (userId, todoId, updatedDescription, todaysTodos, dispatch, reduxFunc, date) => {
+  const updatedObject = {...todaysTodos, [todoId]: {...todaysTodos[todoId], description: updatedDescription}}
+  dispatch(reduxFunc({id: userId, todaysTodosObject: updatedObject, date }));
+}
+
+export const deleteTodo = (userId, todoId, todaysTodos, dispatch, reduxFunc, date ) => {
+  const todoIds = Object.keys(todaysTodos).filter(id => id !== todoId);
+  const updatedTodos = {};
+  todoIds.forEach(id => updatedTodos[id] = todaysTodos[id]);
+  dispatch(reduxFunc({id: userId, todaysTodosObject: updatedTodos, date }));
 }
