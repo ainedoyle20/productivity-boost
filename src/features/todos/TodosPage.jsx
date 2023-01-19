@@ -11,6 +11,7 @@ import {
   selectPercentage 
 } from "../todos/todosSlice";
 import { updateProgress} from "../../app/firebase";
+import { getDayOfWeek } from "../../app/utils";
 
 import AddTodo from './AddTodo';
 import TodosList from './TodosList';
@@ -22,6 +23,7 @@ const TodosPage = () => {
   const navigate = useNavigate();
 
   const [todaysDate] = useState(`${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`);
+  const [dayOfWeek, setDayOfWeek] = useState("");
 
   const userId = useSelector(selectUserId);
   const todaysTodos = useSelector(state => 
@@ -47,6 +49,11 @@ const TodosPage = () => {
       updateProgress(userId, percentageComplete);
     }
   }, [percentageComplete]);
+
+  useEffect(() => {
+    const day = getDayOfWeek(todaysDate);
+    setDayOfWeek(day);
+  }, []);
 
   const handleAddTodo = (newTodoObject) => {
     if (!todaysTodos) {
@@ -80,7 +87,12 @@ const TodosPage = () => {
 
   return (
     <div className={styles.container}>
+
       <div className={styles.scheduleContainer}>
+        <div className={styles.todayContainer}>
+          <span className={styles.today}>{dayOfWeek}</span>
+        </div>
+
         <AddTodo handleAddTodo={handleAddTodo} />
         <TodosList 
           todosList={todosList} 
@@ -90,6 +102,7 @@ const TodosPage = () => {
           handleDeleteTodo={handleDeleteTodo}
         />
       </div>
+
     </div>
   );
 }

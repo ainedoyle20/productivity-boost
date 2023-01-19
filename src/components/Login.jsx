@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { TfiEmail } from "react-icons/tfi";
 import { RiLockPasswordLine } from "react-icons/ri";
 
@@ -11,7 +10,6 @@ import styles from "./Login.module.css";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [loginInfo, setLoginInfo] = useState({
     email: "",
@@ -32,7 +30,6 @@ const Login = () => {
       const userId = await loginUser(email, password);
       if (userId) {
         dispatch(addUserId(userId));
-        navigate("/todos");
       }
     } catch (error) {
       console.log("Error logging in.");

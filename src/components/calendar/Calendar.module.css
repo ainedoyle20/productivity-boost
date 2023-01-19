@@ -1,117 +1,90 @@
 .calendarPage {
   width: 100vw; 
   height: 100vh; 
+  overflow: hidden;
   display: flex; 
   flex-direction: column; 
   justify-content: center; 
   align-items: center;
 }
 
-/* .header {
-  border: "1px solid black"; 
-  font-size: "30px"; 
-  display: "flex"; 
-  justify-content: "space-between"; 
-  align-items: "center"; 
-  width: "500px"; 
-  margin-bottom: "40px";
-}
-
-.headerToggles {
-  cursor: pointer;
-} */
-
-.header {
-  width: 300px; 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  gap: 30px; 
-  border: 1px solid black;
-}
-
-.headerMonthYear {
-  display: flex; 
-  justify-content: space-between; 
-  border: 1px solid black; 
-  width: 140px;
-}
-
-.headerButtons {
-  font-size: 14px; 
-  cursor: pointer;
-}
-
 .weekdays {
-  border: 1px solid black; 
   border-bottom: none;
   width: 600px; 
   display: grid; 
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  margin-top: 30px;
 }
 
 .weekday {
   font-size: 12px; 
-  border: 1px solid black; 
   display: flex; 
   justify-content: center;
 }
 
-.days {
-  border: 1px solid black; 
+.days { 
   width: 600px;
   height: 500px; 
   display: grid; 
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  
 }
 
 .day {
-  border: 1px solid black;
   display: flex;
   justify-content: flex-end;
   position: relative;
   cursor: pointer;
+  box-shadow: rgba(74, 226, 74, 0.05) 0px 6px 24px 0px, rgba(74, 226, 74, 0.08) 0px 0px 0px 1px;
 }
 
 .dayDate {
   margin-right: 5px;
 }
 
+.paddingDay {
+  cursor: default;
+  box-shadow: none;
+}
+
 .hasTodos {
   width: 15px; 
   height: 15px; 
   border-radius: 100%; 
-  background-color: lightblue;
+  background-color: var(--text-green);
   position: absolute; 
   top: 50%; 
   left: 50%; 
   transform: translate(-50%, -50%);
 }
 
+/* Calendar Modal */
+
 .modalContainer {
   position: absolute; 
   width: 100vw; 
   height: 100vh; 
-  z-index: 10; 
+  z-index: 100; 
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .modal {
-  background-color: gray;
-  border: 2px solid black;
+  background-color: black;
+  border: 2px solid var(--text-green);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 600px;
   height: 600px;
+  padding-top: 5px;
 }
 
 .modalHeading {
   width: 100%; 
-  border: 1px solid black; 
   display: flex; 
   justify-content: space-between; 
   margin-bottom: 30px;
@@ -129,7 +102,120 @@
 }
 
 .fullDayContainer {
-  border: 1px solid black; 
   font-size: 25px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--text-green);
+  padding: 0 20px;
 }
 
+.listedTodos {
+  width: 100%;
+  padding: 0px 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media only screen and (max-width: 425px) {
+  .weekdays {
+    width: 100vw;
+  }
+
+  .weekday {
+    font-size: 8px;
+    padding: 5px 0px;
+  }
+
+  .days {
+    width: 100vw;
+    height: 100vw;
+  }
+
+  .day {
+    font-size: 12px;
+  }
+
+  /* Calendar Modal */
+  .modal {
+    width: 100vw;
+    /* height: 600px; */
+  }
+
+  /* .modalHeading {
+    width: 100%; 
+    border: 1px solid var(--text-green); 
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 30px;
+    padding: 10px;
+    font-size: 15px;
+  } */
+  
+  /* .monthYearDisplay {
+    display: flex; 
+    gap: 10px;
+  }
+  
+  .closeModal {
+    cursor: pointer;
+  }
+  
+  .fullDayContainer {
+    border: 1px solid var(--text-green); 
+    font-size: 25px;
+    margin-bottom: 30px;
+  }
+  
+  .listedTodos {
+    border: 1px solid var(--text-green);
+    width: 100%;
+    padding: 0px 20px;
+  } */
+}
+
+@media only screen and (min-width: 426px) {
+  .weekdays {
+    width: 100vw;
+    max-width: 600px;
+  }
+
+  .weekday {
+    font-size: 12px;
+    padding: 10px 0px;
+  }
+
+  .days {
+    width: 100vw;
+    height: 100vw;
+    max-width: 600px;
+    max-height: 500px;
+  }
+
+  /*  Calendar  */
+  .modal {
+    width: 100vw;
+    max-width: 500px;
+  }
+
+  .listedTodos {
+    padding: 0 40px;
+  }
+}
+
+@media only screen and (min-width: 1441px) {
+  .weekdays {
+    width: 100vw;
+    max-width: 800px;
+  }
+
+  .weekday {
+    font-size: 14px;
+    padding: 10px 0px;
+  }
+
+  .days {
+    max-width: 800px;
+    max-height: 700px;
+  }
+}

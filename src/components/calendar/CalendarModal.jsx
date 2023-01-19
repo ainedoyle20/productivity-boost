@@ -14,6 +14,8 @@ import {
 import TodosList from '../../features/todos/TodosList';
 import AddTodo from '../../features/todos/AddTodo';
 
+import styles from "./Calendar.module.css";
+
 const CalendarModal = ({ date, setScheduleModal, userId, monthYear }) => {
   const dispatch = useDispatch();
 
@@ -74,30 +76,30 @@ const CalendarModal = ({ date, setScheduleModal, userId, monthYear }) => {
   }
 
   return (
-    <div
-      style={{ 
-        position: "absolute", 
-        width: "100vw", 
-        height: "100vh", 
-        zIndex: 10, 
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center"
-      }}
+    <div className={styles.modalContainer}
+      // style={{ 
+      //   position: "absolute", 
+      //   width: "100vw", 
+      //   height: "100vh", 
+      //   zIndex: 10, 
+      //   display: "flex",
+      //   justifyContent: "center",
+      //   alignItems: "center"
+      // }}
     >
 
-      <div 
-        style={{
-          backgroundColor: "gray",
-          border: "2px solid black",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          width: "600px",
-          height: "600px",
-        }}
+      <div className={styles.modal}
+        // style={{
+        //   backgroundColor: "gray",
+        //   border: "2px solid black",
+        //   display: "flex",
+        //   flexDirection: "column",
+        //   alignItems: "center",
+        //   width: "600px",
+        //   height: "600px",
+        // }}
       >
-        <div 
+        <div className={styles.modalHeading}
           style={{ 
             width: "100%", 
             border: "1px solid black", 
@@ -108,32 +110,38 @@ const CalendarModal = ({ date, setScheduleModal, userId, monthYear }) => {
             fontSize: "15px"
           }}
         >
-          <div style={{ display: "flex", gap: "10px" }}>
+          <div className={styles.monthYearDisplay}
+          // style={{ display: "flex", gap: "10px" }}
+          >
             <span>{fullMonth}</span>
             <span>{monthYear?.year}</span>
           </div>
-          <span onClick={closeModal} style={{ cursor: "pointer"}}>
+          <span onClick={closeModal} className={styles.closeModal}>
             Close
           </span>
         </div>
 
-        <div style={{ border: "1px solid black", fontSize: "25px"}}>
+        <div className={styles.fullDayContainer}>
           <span>{dayOfWeek}</span>
         </div>
 
-        <AddTodo 
-          handleAddTodo={handleAddTodo}
-          inSchedule={true} 
-          isPastDate={isPastDate}
-        />
-        <TodosList 
-          todosList={todosList} 
-          todaysTodos={currentDateTodosObject} 
-          handleEditTodo={handleEditTodo} 
-          handleDeleteTodo={handleDeleteTodo}
-          inSchedule={true} 
-          isPastDate={isPastDate}
-        />
+        <div className={styles.listedTodos}>
+           <AddTodo 
+              handleAddTodo={handleAddTodo}
+              inSchedule={true} 
+              isPastDate={isPastDate}
+            />
+            <TodosList 
+              todosList={todosList} 
+              todaysTodos={currentDateTodosObject} 
+              handleEditTodo={handleEditTodo} 
+              handleDeleteTodo={handleDeleteTodo}
+              inSchedule={true} 
+              isPastDate={isPastDate}
+            />
+        </div>
+
+       
       </div>
       
     </div>

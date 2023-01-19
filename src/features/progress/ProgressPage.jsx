@@ -7,7 +7,9 @@ import { Chart } from 'chart.js/auto';
 import { fetchProgressData, selectChartData } from "./progressSlice";
 import { selectUserId } from "../user/userSlice";
 
-import Header from '../../components/calendar/Header';
+import Header from '../../components/Header';
+
+import styles from "./ProgressPage.module.css";
 
 const ProgressPage = () => {
   const dispatch = useDispatch();
@@ -41,28 +43,28 @@ const ProgressPage = () => {
           callback: function(value, index, ticks) {
             return value + '%';
           },
-          color: "white"
+          color: "#49fb35"
         },
         border: {
-          color: "white",
+          color: "#49fb35",
           width: 2,
         },
         grid: {
-          color: "white",
+          color: "#49fb35",
           display: false
         }
       },
       x: {
         border: {
-          color: "white",
+          color: "#49fb35",
           width: 2,
         },
         grid: {
-          color: "white",
+          color: "#49fb35",
           display: false
         },
         ticks: {
-          color: "white"
+          color: "#49fb35"
         }
       },
     },
@@ -70,7 +72,7 @@ const ProgressPage = () => {
       title: {
         display: true,
         text: chart === "day" ? "Daily Scores" : chart === "week" ? "Average Weekly Score" : "Average Score for the Month",
-        color: "white"
+        color: "#49fb35"
       },
       legend: {
         display: false
@@ -85,29 +87,29 @@ const ProgressPage = () => {
       {
         label: "Score",
         data: chartData ? [...chartData.yAxis, 100] : [100],
-        backgroundColor: "white",
-        borderColor: "white",
+        backgroundColor: "#49fb35",
+        borderColor: "#49fb35",
         borderWidth: 1,
       },
     ],
   }
 
   return (
-    <div style={{ width: "900px", height: "100vh", margin: "auto", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "20px", border: "1px solid black"}}>
+    <div className={styles.container}>
       {!chartData ? (
-          <div style={{ fontSize: "20px", position: "absolute", cursor: "default", display: "flex", alignItems: "center", flexDirection: "column"}}>
+          <div className={styles.nodata}>
             <span>No data </span>
-            <span>You did not use this application during this month.</span> 
+            <span className={styles.nodataDescription}>You did not use this application during this month.</span> 
           </div>
       ) : null
       }
 
       {chartData 
-        ? chartData.yAxis.slice(0, chartData.length-1).reduce((acc, val) => acc + val, 0) === 0 
+        ? chartData.yAxis.reduce((acc, val) => acc + val, 0) === 0 
           ? (
-            <div style={{ fontSize: "20px", position: "absolute", cursor: "default", display: "flex", alignItems: "center", flexDirection: "column"}}>
+            <div className={styles.nodata}>
               <span>0%</span>
-              <span>You have not completed any of your todos.</span> 
+              <span className={styles.nodataDescription}>You have not completed any of your todos.</span> 
             </div>
           ) 
           : null 
@@ -116,43 +118,34 @@ const ProgressPage = () => {
 
       <Header monthYear={monthYear} setMonthYear={setMonthYear}  /> 
 
-      <div style={{ display: "flex", width: "auto"}}>
+      <div className={styles.options}>
         <span
           onClick={() => setChart("day")}
-          style={{ 
-            cursor: "pointer", width: "100px", padding: "2px 0px", border: "1px solid black",
-            display: "flex", justifyContent: "center", alignItems: "center",
-            fontSize: "14px"
-          }}
+          className={`${styles.option} ${styles.day} ${chart === "day" ? styles.activeOption : ""}`}
         >
           Day
         </span>
         <span
           onClick={() => setChart("week")}
-          style={{ 
-            cursor: "pointer", width: "100px", padding: "2px 0px", border: "1px solid black",
-            display: "flex", justifyContent: "center", alignItems: "center",
-            fontSize: "14px"
-          }}
+          className={`${styles.option} ${chart === "week" ? styles.activeOption : ""}`}
         >
           Week
         </span>
         <span
           onClick={() => setChart("month")}
-          style={{ 
-            cursor: "pointer", width: "100px", padding: "2px 0px", border: "1px solid black",
-            display: "flex", justifyContent: "center", alignItems: "center",
-            fontSize: "14px"
-          }}
+          className={`${styles.option} ${styles.month} ${chart === "month" ? styles.activeOption : ""}`}
         >
           Month
         </span>
       </div>
       
-      <Bar 
-        data={chartDataObject}
-        options={optionsObject}
-      />
+      
+        <Bar 
+          className={styles.barchart}
+          data={chartDataObject}
+          options={optionsObject}
+        />
+      
     </div>
   );
 }

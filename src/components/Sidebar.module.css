@@ -1,12 +1,73 @@
 .container {
+  border: none;
+}
+
+.burger {
   position: absolute;
-  border: 1px solid var(--text-green);
+  top: 105px;
+  left: 16px;
+  font-size: 22px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.showSidebar .sidebar {
+  width: 70px;
+  overflow: visible;
+}
+
+.showSidebar .navs {
+  opacity: 1;
+}
+.showSidebar .logoutSection {
+  opacity: 1;
+}
+
+.hideSidebar .sidebar {
+  width: 0px;
+  padding: 0px;
+}
+
+.hideSidebar .navs {
+  opacity: 0;
+}
+
+.hideSidebar .logoutSection {
+  opacity: 0;
+}
+
+.sidebar {
+  z-index: 10;
+  position: absolute;
+  border-top: 1px solid var(--text-green);
+  border-right: 1px solid var(--text-green);
+  border-bottom: 1px solid var(--text-green);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  
   display: flex;
   flex-direction: column;
   left: 0;
   top: 85px;
   height: 80%;
-  padding: 0px 20px;
+  /* padding: 0px 20px; */
+  overflow: hidden;
+  transition: width 500ms;
+  
+  background-color: black;
+}
+
+.close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  cursor: pointer;
+  height: 15%;
 }
 
 .navs {
@@ -19,9 +80,101 @@
   gap: 40px;
   color: var(--text-green);
   font-size: 25px;
+  background-color: black;
+  width: 100%;
+  transition-delay: 350ms;
+  transition-property: opacity;
+}
+
+.todosLink,
+.progressLink,
+.calendarLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  background-color: black;
+  z-index: 10;
+}
+
+.todosLink:hover .todosLinkName {
+  width: 100px;
+}
+.progressLink:hover .progressLinkName {
+  width: 100px;
+}
+.calendarLink:hover .calendarLinkName {
+  width: 100px;
+}
+
+.todosLinkName,
+.progressLinkName,
+.calendarLinkName {
+  position: absolute;
+  left: 183%;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid var(--text-green);
+  border-top: 1px solid var(--text-green);
+  border-bottom: 1px solid var(--text-green);
+  border-left: 1px solid black;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: black;
+  font-size: 18px;
+  width: 0px;
+  padding: 5px 0;
+  transition: width 500ms;
+  overflow: hidden;
+}
+
+.logoutSection {
+  height: 15%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition-delay: 350ms;
+  transition-property: opacity;
 }
 
 .logout {
-  cursor: pointer;
   font-size: 25px;
+  cursor: pointer;
+  position: relative;
+  padding: 5px 0;
+}
+
+.logout:hover .logoutName {
+  width: 100px;
+}
+
+.logoutName {
+  position: absolute;
+  left: 183%;
+  top: 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid var(--text-green);
+  border-top: 1px solid var(--text-green);
+  border-bottom: 1px solid var(--text-green);
+  border-left: 1px solid black;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: black;
+  font-size: 18px;
+  width: 0px;
+  padding: 5px 0;
+  transition: width 500ms;
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 425px) {
+  .burger {
+    top: 40px;
+    left: 15px;
+  }
 }

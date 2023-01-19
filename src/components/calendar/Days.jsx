@@ -5,6 +5,8 @@ import { selectTodosObject } from "../../features/todos/todosSlice";
 
 import Day from './Day';
 
+import styles from "./Calendar.module.css";
+
 const Days = ({ days, monthYear, setScheduleModal }) => {
   const todosObject = useSelector(selectTodosObject);
 
@@ -16,30 +18,16 @@ const Days = ({ days, monthYear, setScheduleModal }) => {
     setScheduleModal({ showModal: true, date: formatedDate });
   }
 
-  const hasTodosCheck = (day) => {
-    console.log("todos checking...");
-    let hasTodos;
-    const tempDate = `${day}-${monthYear.month}-${monthYear.year}`;
-
-    if (todosObject[tempDate]) {
-      hasTodos = Object.keys(todosObject[tempDate]).length ? true : false;
-    } else {
-      hasTodos = false;
-    }
-
-    return hasTodos;
-  }
-
   return (
-    <div 
-      style={{ 
-        border: '1px solid black', 
-        width: "600px",
-        height: "500px", 
-        display: "grid", 
-        gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
-        gridTemplateRows: "1fr 1fr 1fr 1fr 1fr 1fr",
-      }}
+    <div className={styles.days}
+      // style={{ 
+      //   border: '1px solid black', 
+      //   width: "600px",
+      //   height: "500px", 
+      //   display: "grid", 
+      //   gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
+      //   gridTemplateRows: "1fr 1fr 1fr 1fr 1fr 1fr",
+      // }}
     >
       {
         days.map((day, idx) => (

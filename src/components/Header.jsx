@@ -1,6 +1,9 @@
 import React from 'react';
+import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from "react-icons/md";
 
-import { months } from "../../app/utils";
+import { months } from "../app/utils";
+
+import styles from "./Header.module.css";
 
 const Header = ({ monthYear, setMonthYear }) => {
   const decreaseMonth = () => {
@@ -24,15 +27,19 @@ const Header = ({ monthYear, setMonthYear }) => {
   }
 
   return (
-    <div style={{ border: "1px solid black", fontSize: "30px", display: "flex", justifyContent: "space-between", alignItems: "center", width: "500px", marginBottom: "40px"}}>
-      <span onClick={decreaseMonth} style={{ cursor: "pointer"}}>Prev</span>
+    <div className={styles.header}>
+      <span onClick={decreaseMonth} className={styles.headerButtons}>
+      <MdOutlineNavigateBefore />
+      </span>
 
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "240px" }}>
+      <div className={styles.headerMonthYear}>
         <span>{months[monthYear.month]}</span>
         <span>{monthYear.year}</span>
       </div>
 
-      <span onClick={increaseMonth} style={{ cursor: "pointer"}}>Next</span>
+      <span onClick={increaseMonth} className={styles.headerButtons}>
+        <MdOutlineNavigateNext />
+      </span>
     </div>
   );
 }

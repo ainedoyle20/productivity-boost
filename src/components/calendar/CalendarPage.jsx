@@ -6,10 +6,12 @@ import { selectUserId } from "../../features/user/userSlice";
 
 import { getDaysInMonth, getPaddingDays } from "../../app/utils";
 
-import Header from './Header';
+import Header from '../Header';
 import Weekdays from './Weekdays';
 import Days from './Days';
 import CalendarModal from './CalendarModal';
+
+import styles from "./Calendar.module.css";
 
 const CalendarPage = () => {
   const navigate = useNavigate();
@@ -51,7 +53,7 @@ const CalendarPage = () => {
   }, [monthYear])
 
   return (
-    <div style={{ width: "100vw", height: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+    <div className={styles.calendarPage}>
       <Header monthYear={monthYear} setMonthYear={setMonthYear} />
 
       <Weekdays />

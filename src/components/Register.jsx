@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { RiLockPasswordLine } from "react-icons/ri";
 import { TfiEmail } from "react-icons/tfi";
 
@@ -11,7 +10,6 @@ import styles from "./Register.module.css";
 
 const Register = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [formInfo, setFormInfo] = useState({
     email: "",
@@ -37,7 +35,6 @@ const Register = () => {
     try {
       const userId = await registerUser(email, password);
       dispatch(addUserId(userId));
-      navigate("/todos");
     } catch (error) {
       console.log("Error registering user.");
     }

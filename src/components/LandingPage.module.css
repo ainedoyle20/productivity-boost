@@ -1,8 +1,12 @@
-.icon {
+.iconContainer {
   position: absolute;
-  top: 150px;
-  right: 300px;
-  width: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
 }
 
 .links {
@@ -43,11 +47,11 @@
   border: 1px solid var(--text-green);
   border-radius: 10px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
   padding: 10px 20px;
   font-size: 20px;
   cursor: pointer;
+  width: auto;
 }
 
 .instructions {
@@ -66,6 +70,7 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 40px;
+  padding: 0px 10px;
 }
 
 .step {
@@ -77,4 +82,201 @@
 
 .stepDescription {
   font-size: 20px;
+}
+
+@media only screen and (max-width: 425px) {
+
+  .iconContainer {
+    width: 95vw;
+    height: 120px;
+    padding-right: 20px;
+  }
+
+  .icon {
+    width: 60px;
+  }
+
+  .textContainer {
+    padding: 10px 0px 10px 20px;
+    width: 95vw;
+  }
+
+  .text1 {
+    font-size: 30px;
+    /* display: flex;
+    gap: 20px; */
+  }
+  
+  .text2 {
+    font-size: 40px;
+  }
+
+  .button {
+    width: 300px;
+    font-size: 16px;
+  }
+
+  .step {
+    font-size: 20px;
+  }
+
+  .stepDescription {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (min-width: 426px) {
+  .iconContainer {
+    width: 425px;
+    height: 200px;
+    padding-right: 5px;
+  }
+
+  .icon {
+    width: 100px;
+  }
+
+  .textContainer {
+    padding: 10px 0px 10px 15px;
+    width: 425px;
+  }
+
+  .text1 {
+    font-size: 50px;
+  }
+  
+  .text2 {
+    font-size: 65px;
+  }
+
+  .button {
+    width: 300px;
+    font-size: 16px;
+  }
+
+  .step {
+    font-size: 20px;
+  }
+
+  .stepDescription {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .iconContainer {
+    width: 650px;
+    height: 240px;
+    padding-right: 5px;
+  }
+
+  .icon {
+    width: 120px;
+  }
+
+  .textContainer {
+    padding: 10px 0px 10px 25px;
+    width: 95vw;
+  }
+
+  .text1 {
+    font-size: 60px;
+  }
+  
+  .text2 {
+    font-size: 90px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+
+  .textContainer {
+    padding: 10px 0px 10px 25px;
+    width: 90vw;
+  }
+
+  .text1 {
+    font-size: 70px;
+  }
+  
+  .text2 {
+    font-size: 110px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .iconContainer {
+    width: 1000px;
+    height: 400px;
+    padding-right: 5px;
+  }
+
+  .icon {
+    width: 200px;
+  }
+
+  .textContainer {
+    padding: 10px 0px 10px 25px;
+    width: 90vw;
+    max-width: 1440px;
+  }
+
+  .text1 {
+    font-size: 90px;
+  }
+  
+  .text2 {
+    font-size: 150px;
+  }
+
+  .button {
+    width: 400px;
+    font-size: 20px;
+  }
+
+  .step {
+    font-size: 25px;
+  }
+
+  .stepDescription {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .iconContainer {
+    width: 1350px;
+    height: 500px;
+  }
+
+  .icon {
+    width: 250px;
+  }
+
+  .textContainer {
+    padding: 10px 0px 10px 25px;
+    width: 90vw;
+    max-width: 1440px;
+  }
+
+  .text1 {
+    font-size: 130px;
+  }
+  
+  .text2 {
+    font-size: 200px;
+  }
+
+  .button {
+    width: 500px;
+    font-size: 25px;
+  }
+
+  .step {
+    font-size: 30px;
+  }
+
+  .stepDescription {
+    font-size: 25px;
+  }
 }

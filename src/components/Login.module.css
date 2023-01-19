@@ -31,6 +31,7 @@
   border: none;
   padding-bottom: 2px;
   font-size: 20px;
+  width: 100%;
 }
 
 .inputContainers span {
@@ -55,4 +56,30 @@
   border: 1px solid var(--text-green);
   background-color: black;
   color: var(--text-green);
+}
+
+@media only screen and (min-width: 1441px) {
+  .loginForm {
+  
+    width: 350px;
+    height: 450px;
+  }
+
+  .inputContainers {
+    gap: 20px;
+    width: 300px;
+  }
+
+  .inputContainers input {
+    font-size: 30px;
+  }
+
+  .inputContainers span {
+    font-size: 35px;
+  }
+
+  .loginBtn {
+    font-size: 30px;
+    width: 300px;
+  }
 }

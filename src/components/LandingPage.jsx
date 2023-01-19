@@ -30,11 +30,13 @@ const LandingPage = () => {
         </Link>
       </div>
 
-      <img 
-        className={styles.icon}
-        alt="productivity icon"
-        src={ProductivityIcon}
-      />
+      <div className={styles.iconContainer}>
+        <img 
+          className={styles.icon}
+          alt="productivity icon"
+          src={ProductivityIcon}
+        />
+      </div>
 
       <div className={styles.textContainer}>
         <div className={styles.text1}>
@@ -49,9 +51,7 @@ const LandingPage = () => {
       </div>
 
       <div className={styles.button} onClick={executeScroll}>
-        <span>
-          Simple Steps to Get Started
-        </span>
+        Simple Steps to Get Started
       </div>
       
       <div className={styles.instructions} ref={instructionsRef}>

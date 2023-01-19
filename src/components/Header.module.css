@@ -1,0 +1,41 @@
+.header {
+  width: 350px; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  gap: 30px; 
+}
+
+.headerMonthYear {
+  display: flex; 
+  justify-content: space-between; 
+  width: auto;
+  font-size: 25px;
+  gap: 10px;
+}
+
+.headerButtons {
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+
+  font-size: 14px; 
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 425px) {
+  .header {
+    width: auto;
+  }
+
+  .headerButtons {
+    font-size: 18px; 
+  }
+
+}
+
+@media only screen and (min-width: 768px) {
+  .headerButtons {
+    font-size: 25px; 
+  }
+}

@@ -1,6 +1,4 @@
 :root {
-  --text-white: white;
-  --background-black: black;
   --text-green: #49fb35;
 }
 
@@ -12,6 +10,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   color: var(--text-green);
   scroll-behavior: smooth;
+  
 }
 
 a {
