@@ -30,7 +30,6 @@ const ProgressPage = () => {
       navigate("/");
     }
 
-    console.log('running');
     dispatch(fetchProgressData(userId));
     
   }, [userId]);

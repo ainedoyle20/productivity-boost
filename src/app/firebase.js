@@ -19,7 +19,6 @@ export const registerUser = async (email, password) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const { uid } = userCredential.user;
-    console.log("uid: ", uid);
     return uid;
   } catch (error) {
     if (error.code === "auth/email-already-exists") {
@@ -39,7 +38,6 @@ export const loginUser = async (email, password) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const { uid } = userCredential.user;
-    console.log("uid: ", uid);
     return uid;
   } catch (error) {
     if (error.code === "auth/wrong-password") {
@@ -61,7 +59,7 @@ export const logoutUser = async () => {
   }
 }
 
-//[`${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`]: []
+// Todos 
 
 const setTodosDoc = async (userId) => {
   try {
@@ -72,13 +70,12 @@ const setTodosDoc = async (userId) => {
   }
 }
 
-// fire when user successfully logs in (need user uid)
+
 export const getTodos = async (userId) => {
   const docRef = doc(db, "todos", userId);
   try {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      // console.log("Document data: ", docSnap.data());
       return docSnap.data();
     } else {
 
@@ -87,14 +84,10 @@ export const getTodos = async (userId) => {
       return {};
     }
   } catch (error) {
-    console.log("Error getting todos: ", error.message);
+    console.log("Error getting todos.");
     alert("Sorry somthing went wrong. Please try again later.");
   }
 }
-
-// have select todos percentage in todosSlice.js
-// NOTE: below is NOT a redux function, it is a firebase function (should not effect application)
-// whenever todos percentage changes (useEffect) -> updatePercentage(id, percentage) (firebase function)
 
 export const updateTodos = async (userId, currentTodosObject) => {
   const docRef = doc(db, "todos", userId);
@@ -105,7 +98,7 @@ export const updateTodos = async (userId, currentTodosObject) => {
     });
     return;
   } catch (error) {
-    console.log("Error updating todos doc: ", error);
+    console.log("Error updating todos doc.");
   }
 }
 
@@ -131,7 +124,6 @@ const setProgressDoc = async (id) => {
   }
 }
 
-// fire when user enters todos page
 export const getProgressData = async (userId) => {
   const docRef = doc(db, "progress", userId);
   try {
@@ -148,36 +140,15 @@ export const getProgressData = async (userId) => {
   }
 }
 
-const getDaysInMonth = (month, year) => {
-  return new Date(year, month, 0).getDate();
-}
-
-const createProgressMonthObject = (month, year) => {
-  const daysInMonth = getDaysInMonth(month, year);
-  const obj = {};
-
-  for (let i= 1; i <=daysInMonth; i++) {
-    obj[i] = 0;
-  }
-
-  return obj;
-};
-
 export const updateProgress = async (userId, percentage) => {
   if (!userId) return;
 
   const docRef = doc(db, "progress", userId);
   const monthYearKey = `${new Date().getMonth()}-${new Date().getFullYear()}`;
   const date = `${new Date().getDate()}`;
-  // const month = (new Date().getMonth() + 1);
-  // const fullYear = new Date().getFullYear();
   const progressData = await getProgressData(userId);
 
   if (!progressData[monthYearKey] || !Object.keys(progressData[monthYearKey]).length) {
-    // set month-year object with dates & percentage for todays date
-
-    // const percentagesObject = createProgressMonthObject(month, fullYear);
-    // percentagesObject[date] = percentage;
     try {
       await updateDoc(docRef, {
         [monthYearKey]: {[date]: percentage}

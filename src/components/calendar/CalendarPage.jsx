@@ -32,8 +32,6 @@ const CalendarPage = () => {
   }, [userId])
   
   useEffect(() => {
-    console.log("Running.");
-
     let temp = [];
     const paddingDays = getPaddingDays(monthYear.year, monthYear.month);
     const daysInMonth = getDaysInMonth((monthYear.month + 1), monthYear.year);

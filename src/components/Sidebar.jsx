@@ -22,7 +22,6 @@ const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(false);
 
   const handleLogout = async () => {
-    console.log('logging out');
     await logoutUser();
     dispatch(removeUserId());
     dispatch(setTodosObject({}));
