@@ -19,16 +19,7 @@ const Days = ({ days, monthYear, setScheduleModal }) => {
   }
 
   return (
-    <div className={styles.days}
-      // style={{ 
-      //   border: '1px solid black', 
-      //   width: "600px",
-      //   height: "500px", 
-      //   display: "grid", 
-      //   gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
-      //   gridTemplateRows: "1fr 1fr 1fr 1fr 1fr 1fr",
-      // }}
-    >
+    <div className={styles.days}>
       {
         days.map((day, idx) => (
           <Day 
@@ -40,6 +31,7 @@ const Days = ({ days, monthYear, setScheduleModal }) => {
               ) : false
             } 
             selectDay={selectDay}
+            isToday={new Date(`${monthYear?.year}-${monthYear?.month + 1}-${day}`).toDateString() === new Date().toDateString() ? true : false}
           />
         ))
       }

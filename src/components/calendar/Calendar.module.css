@@ -36,7 +36,7 @@
   justify-content: flex-end;
   position: relative;
   cursor: pointer;
-  box-shadow: rgba(74, 226, 74, 0.05) 0px 6px 24px 0px, rgba(74, 226, 74, 0.08) 0px 0px 0px 1px;
+  box-shadow: rgba(74, 226, 74, 0.07) 0px 6px 24px 0px, rgba(74, 226, 74, 0.1) 0px 0px 0px 1px;
 }
 
 .dayDate {
@@ -46,6 +46,10 @@
 .paddingDay {
   cursor: default;
   box-shadow: none;
+}
+
+.isToday {
+  background-color: rgba(74, 226, 74, 0.2);
 }
 
 .hasTodos {
@@ -81,6 +85,7 @@
   width: 600px;
   height: 600px;
   padding-top: 5px;
+  padding-bottom: 10px;
 }
 
 .modalHeading {
@@ -115,6 +120,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  
+  overflow: scroll;
 }
 
 @media only screen and (max-width: 425px) {
@@ -139,39 +146,7 @@
   /* Calendar Modal */
   .modal {
     width: 100vw;
-    /* height: 600px; */
   }
-
-  /* .modalHeading {
-    width: 100%; 
-    border: 1px solid var(--text-green); 
-    display: flex; 
-    justify-content: space-between; 
-    margin-bottom: 30px;
-    padding: 10px;
-    font-size: 15px;
-  } */
-  
-  /* .monthYearDisplay {
-    display: flex; 
-    gap: 10px;
-  }
-  
-  .closeModal {
-    cursor: pointer;
-  }
-  
-  .fullDayContainer {
-    border: 1px solid var(--text-green); 
-    font-size: 25px;
-    margin-bottom: 30px;
-  }
-  
-  .listedTodos {
-    border: 1px solid var(--text-green);
-    width: 100%;
-    padding: 0px 20px;
-  } */
 }
 
 @media only screen and (min-width: 426px) {
