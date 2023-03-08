@@ -58,6 +58,13 @@
   color: var(--text-green);
 }
 
+.loader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media only screen and (min-width: 1441px) {
   .registerForm {
   

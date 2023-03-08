@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { RiLockPasswordLine } from "react-icons/ri";
 import { TfiEmail } from "react-icons/tfi";
+import { Oval } from 'react-loader-spinner';
 
 import { addUserId } from "../features/user/userSlice";
 import { registerUser } from "../app/firebase";
@@ -11,6 +12,7 @@ import styles from "./Register.module.css";
 const Register = () => {
   const dispatch = useDispatch();
 
+  const [loading, setLoading] = useState(false);
   const [formInfo, setFormInfo] = useState({
     email: "",
     password: "",
@@ -92,7 +94,23 @@ const Register = () => {
           />
         </div>
 
-        <button type='submit' className={styles.registerBtn}>Register</button>
+        <button disabled={loading} type='submit' className={styles.registerBtn}>
+          {loading 
+            ? <span className={styles.loader}>
+                <Oval
+                  height={20}
+                  width={20}
+                  color="#40d32f"
+                  visible={true}
+                  ariaLabel='oval-loading'
+                  secondaryColor="#40d32f"
+                  strokeWidth={6}
+                  strokeWidthSecondary={6}
+                />
+              </span>
+            : "Register"
+          }
+        </button>
       </form>
     </div>
   )

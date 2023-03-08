@@ -1,6 +1,19 @@
 .container {
+  position: relative;
   border: 1px solid var(--text-green);
   border-radius: 15px;
+}
+
+.userLoginDetails {
+  position: absolute;
+  top: 15px;
+  width: 100%;
+  font-size: small;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-green);
 }
 
 .loginForm {
@@ -56,6 +69,13 @@
   border: 1px solid var(--text-green);
   background-color: black;
   color: var(--text-green);
+}
+
+.loader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media only screen and (min-width: 1441px) {
